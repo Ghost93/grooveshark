@@ -4,7 +4,7 @@ using GrooveSharp.Parser;
 
 namespace GrooveSharp.Protocol
 {
-    internal abstract class SessionBase : ISession
+    public abstract class SessionBase : ISession
     {
         private readonly IHashFactory hashFactory;
         private readonly IParser parser;

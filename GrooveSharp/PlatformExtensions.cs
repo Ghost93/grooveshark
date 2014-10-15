@@ -16,8 +16,8 @@ namespace GrooveSharp
         internal static void PrepareEnviroment(this ISession session)
         {
             ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            //ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
     }
 }

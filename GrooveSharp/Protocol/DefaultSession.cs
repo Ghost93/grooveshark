@@ -4,7 +4,7 @@ using GrooveSharp.Parser;
 
 namespace GrooveSharp.Protocol
 {
-    internal class DefaultSession : SessionBase
+    public class DefaultSession : SessionBase
     {
         private string uuid;
         public override string ServerUrl { get { return "grooveshark.com"; } }
@@ -20,7 +20,7 @@ namespace GrooveSharp.Protocol
 
         public DefaultSession(IHashFactory hashFactory, IParser parser) : base(hashFactory, parser)
         {
-            Initialize(Guid.NewGuid().ToString().Replace("-", string.Empty).ToLower());
+            Initialize(Guid.NewGuid().ToString("N").ToLower());
         }
     }
 }

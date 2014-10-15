@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GrooveSharp.Cryptography
 {
-    internal class HashFactory : IHashFactory
+    public class HashFactory : IHashFactory
     {
         public string Md5(string originalPassword)
         {
@@ -18,8 +18,8 @@ namespace GrooveSharp.Cryptography
 
         private static string ComputeHash(string originalPassword, HashAlgorithm algorithm)
         {
-            var originalBytes = Encoding.ASCII.GetBytes(originalPassword);
-            var encodedBytes = algorithm.ComputeHash(originalBytes);
+            byte[] originalBytes = Encoding.ASCII.GetBytes(originalPassword);
+            byte[] encodedBytes = algorithm.ComputeHash(originalBytes);
 
             return BitConverter.ToString(encodedBytes).Replace("-", string.Empty).ToLower();
         }

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GrooveSharp</RootNamespace>
     <AssemblyName>GrooveSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -82,6 +82,9 @@
     <Reference Include="Autofac.Configuration">
       <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
     </Reference>
@@ -91,7 +94,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\GrooveModule.cs" />
     <Compile Include="DataTransferObjects\AddToQueueRequest.cs" />
     <Compile Include="DataTransferObjects\AuthenticateUserRequest.cs" />
     <Compile Include="DataTransferObjects\CreatePlaylistRequest.cs" />
@@ -137,16 +139,12 @@
     <Compile Include="DataTransferObjects\StreamCommandAttribute.cs" />
     <Compile Include="DataTransferObjects\StreamKeyFromSongId.cs" />
     <Compile Include="Exceptions\GrooveException.cs" />
-    <Compile Include="Configuration\GrooveRegistry.cs" />
     <Compile Include="IGrooveConnection.cs" />
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Parser\JsonParser.cs" />
     <Compile Include="PlatformExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\AsyncCommandFactory.cs" />
-    <Compile Include="Protocol\Commands\AsyncCommandBase.cs" />
-    <Compile Include="Protocol\Commands\AsyncHandledCommand.cs" />
-    <Compile Include="Protocol\Commands\IAsyncCommand.cs" />
     <Compile Include="Protocol\Commands\DownloadStreamAsyncCommand.cs" />
     <Compile Include="Protocol\Commands\WebResponseExtensions.cs" />
     <Compile Include="Protocol\IAsyncCommandFactory.cs" />

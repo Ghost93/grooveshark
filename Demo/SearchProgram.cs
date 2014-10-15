@@ -3,7 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using GrooveSharp.Cryptography;
 using GrooveSharp.DataTransferObjects;
+using GrooveSharp.Parser;
+using GrooveSharp.Protocol;
+using GrooveSharp.Protocol.Commands;
 using StructureMap;
 
 namespace GrooveSharp.Demo
@@ -15,15 +19,8 @@ namespace GrooveSharp.Demo
 
         public static void Main(string[] args)
         {
-            ObjectFactory.Initialize(x => x.Scan(cfg =>
-            {
-                cfg.TheCallingAssembly();
-                cfg.AssemblyContainingType<IGrooveConnection>();
-                cfg.LookForRegistries();
-            }));
-
-            con = ObjectFactory.GetInstance<IGrooveConnection>();
-
+            ISession session = new DefaultSession(new HashFactory(), new JsonParser());
+            con = new GrooveConnection(session, new AsyncCommandFactory(session));
             Console.WriteLine("Type search: ");
             var search = Console.ReadLine();
 
@@ -35,11 +32,11 @@ namespace GrooveSharp.Demo
 
         private static async void DonwloadSearch(string search)
         {
-            await con.Open().ExecuteAsync();
+            bool connected = await con.Open().ExecuteAsync();
 
-            var result = await con.GetResultsFromSearch(search).ExecuteAsync();
+            SearchResult result = await con.GetResultsFromSearch(search).ExecuteAsync();
 
-            var song = result.ResultSet.Songs.Select(r => new Song{ AlbumId = r.AlbumId, AlbumName = r.AlbumName, ArtistId = r.ArtistId, ArtistName = r.ArtistName, SongId = r.SongId, Name = r.SongName}).FirstOrDefault();
+            var song = result.ResultSet.Songs.Select(r => new Song { AlbumId = r.AlbumId, AlbumName = r.AlbumName, ArtistId = r.ArtistId, ArtistName = r.ArtistName, SongId = r.SongId, Name = r.SongName }).FirstOrDefault();
             if (song != null)
             {
                 var filename = GetDownloadFilePath(song);
@@ -71,7 +68,7 @@ namespace GrooveSharp.Demo
             {
                 try
                 {
-                    using (new Timer(Mark30SecondsCallback, new object[] { streamInfo, song },TimeSpan.FromSeconds(30).Milliseconds, -1))
+                    using (new Timer(Mark30SecondsCallback, new object[] { streamInfo, song }, TimeSpan.FromSeconds(30).Milliseconds, -1))
                     {
                         using (var writter = new BinaryWriter(File.OpenWrite(filename)))
                         {
