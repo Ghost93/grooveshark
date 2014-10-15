@@ -4,7 +4,7 @@ using GrooveSharp.Protocol.Commands;
 
 namespace GrooveSharp.Protocol
 {
-    internal class AsyncCommandFactory : IAsyncCommandFactory
+    public class AsyncCommandFactory : IAsyncCommandFactory
     {
         private readonly ISession session;
 
